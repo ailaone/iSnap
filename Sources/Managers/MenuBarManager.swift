@@ -80,6 +80,7 @@ class MenuBarManager: NSObject {
             window.title = "Preferences"
             window.center()
             window.isReleasedWhenClosed = false
+            window.level = .floating + 1 // V12.2: Ensure above annotation window
             window.contentView = NSHostingView(rootView: PreferencesView())
             preferencesWindow = window
         }

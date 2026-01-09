@@ -29,6 +29,10 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
     // Async capture using ScreenCaptureKit (macOS 14+) for proper color handling
     // The rect passed here is expected to be in CG coordinates (top-left origin, global)
     func captureRegion(_ rect: CGRect, completion: @escaping (CGImage?) -> Void) {
+        // V20: Force Legacy Capture (CGWindowListCreateImage) to fix Shadows & Sharpness
+        // SCK seems to be filtering shadows or compressing resolution.
+        // CGWindowListCreateImage captures the raw screen buffer exactly as seen.
+        /*
         if #available(macOS 14.0, *) {
             Task {
                 do {
@@ -45,14 +49,15 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
                 }
             }
         } else {
-            // Fallback for older macOS
+        */
+            // Legacy path (Primary now)
             DispatchQueue.global(qos: .userInitiated).async {
                 let image = self.captureRegionSync(rect)
                 DispatchQueue.main.async {
                     completion(image)
                 }
             }
-        }
+        // }
     }
     
     @available(macOS 14.0, *)
@@ -88,14 +93,23 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
         // Get proper scale factor
         let scaleFactor = filter.pointPixelScale
         
+        print("SCK Capture - Scale: \(scaleFactor), LocalRect: \(localRect)")
+        
         let config = SCStreamConfiguration()
         config.sourceRect = localRect
         config.width = Int(localRect.width * CGFloat(scaleFactor))
         config.height = Int(localRect.height * CGFloat(scaleFactor))
-        config.colorSpaceName = CGColorSpace.sRGB
+        
+        // V18: Use P3 Color Space for authentic shadow/color reproduction
+        config.colorSpaceName = CGColorSpace.displayP3
         config.showsCursor = false
         
-        let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
+        // V19: Capture EVERYTHING (including our app if visible, though overlay is hidden)
+        // Using "excludingApplications" might cause SCK to omit shadows cast by other apps onto our (transparent) windows? 
+        // Or simply omitting compositing layers. Using a simple display filter is safest for "Screen Capture".
+        let allContentFilter = SCContentFilter(display: display, excludingWindows: [])
+        
+        let image = try await SCScreenshotManager.captureImage(contentFilter: allContentFilter, configuration: config)
         return image
     }
     

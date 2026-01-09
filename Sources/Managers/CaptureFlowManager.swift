@@ -21,6 +21,9 @@ class CaptureFlowManager: ObservableObject {
             ScreenCaptureManager.shared.requestScreenRecordingPermission()
             
             // Show Alert
+            // V12.3: Remove custom alert to avoid double-prompting (System Prompt + App Alert).
+            // Users will see the System Prompt. If they deny, future attempts will fail silently or we can handle that separately.
+            /*
              DispatchQueue.main.async {
                 let alert = NSAlert()
                 alert.messageText = "Screen Recording Permission Required"
@@ -36,6 +39,7 @@ class CaptureFlowManager: ObservableObject {
                     }
                 }
             }
+            */
             return
         }
         

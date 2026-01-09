@@ -226,11 +226,41 @@ struct AnnotationView: View {
              // Let's keep it as is for Esc, but maybe rename func call.
              // Let's keep it as is for Esc, but maybe rename func call.
              if !drawingModel.items.isEmpty {
-                 saveContent()
-                 window?.close() // Explicit close on Esc as requested
+                 // saveContent() // Removed auto-save on Esc unless configured?
+                 // Wait, existing behavior was "Save Content then Close" if items existed.
+                 // We should revert this to "Close without save" unless configured, OR keep as fallback?
+                 // The user wants explicit options.
+                 // If options are OFF, Esc should just close (discard).
+                 // So we should NOT call saveContent here by default anymore if we want to respect the "Esc Key Action: Save screenshot" checkbox.
+                 // BUT, for safety, maybe we should ask?
+                 // The requirement says: "Esc Key Action" -> Save screenshot, Copy to clipboard.
+                 // If unchecked, it implies "Do nothing" (Just Close).
+                 
+                 window?.close()
              } else {
                  window?.close()
              }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("iSnapPerformEscAction"), object: window)) { _ in
+            // Handle configured Esc actions
+            let settings = SettingsManager.shared
+            
+            // We need to commit current text if editing
+            if editingTextID != nil {
+                commitEditing()
+            }
+            
+            // Actions
+            if settings.escActionSave {
+                _ = FileSaveManager.shared.saveAnnotatedScreenshot(renderCompositeImage())
+            }
+            
+            if settings.escActionCopy {
+                ClipboardManager.shared.copyToClipboard(renderCompositeImage())
+            }
+            
+            // Finally close
+            window?.close()
         }
     }
     
@@ -480,7 +510,7 @@ struct AnnotationView: View {
         return formatter.string(from: Date())
     }
     
-    private func renderCompositeImage() -> NSImage {
+    private func renderCompositeImage(scale: CGFloat = 2.0) -> NSImage {
         // 1. Define Image Rect at Origin (0,0)
         // User requested "Crop to annotations", avoiding extra white border.
         // We start with the image at (0,0).
@@ -527,24 +557,73 @@ struct AnnotationView: View {
         totalBounds = totalBounds.integral
         
         // 3. Create Image
-        let finalSize = totalBounds.size
-        if finalSize.width <= 0 || finalSize.height <= 0 { return NSImage(size: NSSize(width: 100, height: 100)) }
+        // V14.1: Proper DPI Handling
+        // logicalSize is what we want the file to "look like" in points (e.g. 500x500)
         
-        let composite = NSImage(size: finalSize)
-        composite.lockFocus()
+        let logicalSize = totalBounds.size
+        
+        if logicalSize.width <= 0 || logicalSize.height <= 0 { return NSImage(size: NSSize(width: 100, height: 100)) }
+        
+        // Create NSImage with proper logical size
+        let composite = NSImage(size: logicalSize)
+        
+        // V17: Dynamic Scale Calculation
+        // Calculate the EXACT scale of the source image to avoid mismatch (e.g. 1x vs 2x)
+        var srcRect = CGRect(origin: .zero, size: image.size)
+        var actualScale: CGFloat = scale // Default to passed scale (usually 2.0)
+        
+        // Try to get the backing CGImage to check real pixel width
+        if let cgImg = image.cgImage(forProposedRect: &srcRect, context: nil, hints: nil) {
+            if image.size.width > 0 {
+                actualScale = CGFloat(cgImg.width) / image.size.width
+            }
+        }
+        
+        // Manual Representation Creation with ACTUAL scale
+        let pixelWidth = Int(logicalSize.width * actualScale)
+        let pixelHeight = Int(logicalSize.height * actualScale)
+        
+        // Match Source Color Space if possible
+        let targetColorSpaceName: NSColorSpaceName = .deviceRGB
+        
+        guard let rep = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: pixelWidth,
+            pixelsHigh: pixelHeight,
+            bitsPerSample: 8,
+            samplesPerPixel: 4,
+            hasAlpha: true,
+            isPlanar: false,
+            colorSpaceName: targetColorSpaceName,
+            bytesPerRow: 0,
+            bitsPerPixel: 0
+        ) else { return composite }
+        
+        // Removed manual assignment of rep.colorSpace (read-only)
+        
+        rep.size = logicalSize // IMPORTANT: This tells macOS the logical size, implying scale = pixel / logical
+        
+        // V15: Explicit Context Creation for Sharpness
+        // Do NOT use composite.lockFocus(). It relies on global state/screen.
+        // Create context directly from the high-res representation.
+        guard let graphicsContext = NSGraphicsContext(bitmapImageRep: rep) else {
+            print("Failed to create graphics context from rep")
+            return composite
+        }
+        
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current = graphicsContext
         
         // 4. Fill White Background
         NSColor.white.setFill()
-        NSRect(origin: .zero, size: finalSize).fill()
+        NSRect(origin: .zero, size: logicalSize).fill()
         
-        guard let context = NSGraphicsContext.current?.cgContext else { 
-            composite.unlockFocus()
-            return composite 
-        }
+        // Prepare Context for simple CG drawing if needed, but NS drawing is fine in NSContext
+        let context = graphicsContext.cgContext
         
         // 5. Draw Image
         // totalBounds.origin is the top-left of the crop rect in Model Space.
-        // We want to map totalBounds.origin to (0, finalSize.height) in Context Space (flipped)?
+        // We want to map totalBounds.origin to (0, logicalSize.height) in Context Space (flipped)?
         // NSImage.lockFocus() provides a standard (bottom-left) coordinate system.
         // Image is at (0, 0) in Model Space (Top-Left).
         // totalBounds might start at (-100, -100).
@@ -560,19 +639,25 @@ struct AnnotationView: View {
         // It should be drawn at (shiftX, ...)
         // In BL coords:
         // DestX = shiftX
-        // DestY = finalSize.height - (0 + shiftY) - image.height?
-        // Let's trace:
-        // Model Y=0 is Top.
-        // Model Y=totalBounds.minY is Top of Crop.
-        // In BL: Top of Crop is 'finalSize.height'.
-        // Distance from Top of Crop to Image Top = 0 - totalBounds.minY = shiftY.
-        // So Image Top in BL is finalSize.height - shiftY.
-        // Image Bottom in BL is finalSize.height - shiftY - image.height.
+        // DestY = logicalSize.height - (0 + shiftY) - image.height?
         
         let destX = shiftX
-        let destY = finalSize.height - shiftY - imageRect.height
+        let destY = logicalSize.height - shiftY - imageRect.height
         
-        image.draw(in: NSRect(x: destX, y: destY, width: imageRect.width, height: imageRect.height))
+        // V16: Direct CG Drawing for sharpness
+        // Get the underlying CGImage from the NSImage to avoid re-rasterization or resolution mismatch
+        // Get the underlying CGImage from the NSImage to avoid re-rasterization or resolution mismatch
+        // srcRect already defined above
+        if let cgImage = image.cgImage(forProposedRect: &srcRect, context: nil, hints: nil) {
+            context.saveGState()
+            // Ensure no unwanted interpolation for 1:1 pixel mapping, but High is safer for slight mismatches
+            context.interpolationQuality = .high 
+            context.draw(cgImage, in: CGRect(x: destX, y: destY, width: imageRect.width, height: imageRect.height))
+            context.restoreGState()
+        } else {
+            // Fallback (Should not happen if image is valid)
+            image.draw(in: NSRect(x: destX, y: destY, width: imageRect.width, height: imageRect.height))
+        }
         
         // 6. Draw Annotations
         // drawingModel.drawStrokes expects a context.
@@ -583,7 +668,7 @@ struct AnnotationView: View {
         context.saveGState()
         drawingModel.drawStrokes(
             in: context,
-            size: finalSize,
+            size: logicalSize,
             isFlipped: false, // We are in NSImage context (BL), but drawStrokes handles flip logic if we tell it?
             // Wait, drawStrokes logic:
             // if isFlipped { return (x, y) } else { return (x, size.height - y) }
@@ -597,7 +682,9 @@ struct AnnotationView: View {
         )
         context.restoreGState()
         
-        composite.unlockFocus()
+        NSGraphicsContext.restoreGraphicsState()
+        
+        composite.addRepresentation(rep)
         return composite
     }
     

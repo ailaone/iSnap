@@ -1,45 +1,53 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @AppStorage("saveLocation") private var saveLocation: String = "~/Pictures/iSnap/"
-    @AppStorage("openAfterCapture") private var openAfterCapture: Bool = true
+    @ObservedObject var settings = SettingsManager.shared
     
     var body: some View {
         Form {
-            Section(header: Text("General")) {
-                Toggle("Open markup window after capture", isOn: $openAfterCapture)
-            }
-            
-            Section(header: Text("Storage")) {
-                HStack {
-                    Text("Save Location:")
-                    Spacer()
-                    Text(saveLocation)
-                        .truncationMode(.middle)
-                        .foregroundColor(.secondary)
+            Section {
+                VStack(alignment: .leading) {
+                    Text("General").font(.headline)
+                    Divider()
                     
-                    Button("Choose...") {
-                        selectFolder()
+                    HStack {
+                        Text("Save location:")
+                        TextField("", text: $settings.saveLocation)
+                            .disabled(true) // Read-only text field
+                        Button("Choose...") {
+                            selectFolder()
+                        }
                     }
+                    .padding(.vertical, 4)
                 }
             }
             
-            Section(header: Text("Shortcuts")) {
-                HStack {
-                    Text("Capture:")
-                    Spacer()
-                    Text("⌘⌥2") // Placeholder until we have a real recorder
-                        .padding(4)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(4)
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Functionality").font(.headline)
+                    Divider()
+                    
+                    Text("\"Esc\" Key Action")
+                        .padding(.top, 4)
+                    
+                    Toggle("Save screenshot", isOn: $settings.escActionSave)
+                    Toggle("Copy to clipboard", isOn: $settings.escActionCopy)
                 }
-                Text("To change the shortcut, please edit system preferences (Shortcuts) for now or wait for v1.1 update.")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            }
+            
+            Section {
+                VStack(alignment: .leading) {
+                    Text("Behavior").font(.headline)
+                    Divider()
+                    
+                    Toggle("One-click fullscreen screenshot", isOn: $settings.oneClickFullscreen)
+                    // Toggle("Show icon in Dock", isOn: .constant(false)) // Removed as per request
+                    Toggle("Open application on login", isOn: $settings.openOnLogin)
+                }
             }
         }
         .padding()
-        .frame(width: 450, height: 250)
+        .frame(width: 500)
     }
     
     private func selectFolder() {
@@ -50,7 +58,7 @@ struct PreferencesView: View {
         
         if panel.runModal() == .OK {
             if let url = panel.url {
-                saveLocation = url.path
+                settings.saveLocation = url.path
             }
         }
     }

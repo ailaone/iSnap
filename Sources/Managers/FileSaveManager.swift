@@ -46,8 +46,15 @@ class FileSaveManager {
         return saveAppleStyle(cgImage, to: url)
     }
     
-    func saveImage(_ image: CGImage, to url: URL) -> Bool {
+    func saveImage(_ image: CGImage, to url: URL, scale: CGFloat = 2.0) -> Bool {
         let bitmapRep = NSBitmapImageRep(cgImage: image)
+        
+        // V14: Fix DPI.
+        // CGImage is pure pixels. NSBitmapImageRep defaults to 72 DPI (Scale 1.0).
+        // To indicate 144 DPI (Scale 2.0), we must set the .size property (logical size)
+        // to be half the pixel dimensions.
+        // Logical Size = Pixel Size / Scale
+        bitmapRep.size = NSSize(width: CGFloat(image.width) / scale, height: CGFloat(image.height) / scale)
         
         guard let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
             print("❌ Failed to create PNG data")
@@ -56,7 +63,7 @@ class FileSaveManager {
         
         do {
             try pngData.write(to: url)
-            print("✅ Saved PNG: \(url.lastPathComponent)")
+            print("✅ Saved PNG: \(url.lastPathComponent) @ Scale \(scale)")
             return true
         } catch {
             print("❌ Failed to write file: \(error)")

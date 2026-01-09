@@ -191,16 +191,50 @@ class SelectionView: NSView {
         let w = abs(start.x - end.x)
         let h = abs(start.y - end.y)
         
-        // Convert to Screen Coordinates
-        // This view covers the screen, so event.locationInWindow IS the screen coordinate relative to THIS screen's origin (if window is at 0,0 of screen).
-        // However, if we are on a secondary monitor, we need to account for the window's frame origin in global space.
+        // V2.1: One-click Check
+        // If drag is very small (< 5 points), consider it a click.
+        let isClick = w < 5 && h < 5
         
-        if let windowFrame = window?.frame {
+        if isClick {
+            // Check settings
+            if SettingsManager.shared.oneClickFullscreen {
+                // Capture entire screen
+                if let screenFrame = window?.frame {
+                    // Use the full screen frame
+                    // We need to re-convert to CG coordinates logic below, but easiest is to just use the window frame
+                    
+                    // We can reuse the logic below by faking the rect to be the window bounds
+                    let fullRect = NSRect(origin: .zero, size: screenFrame.size)
+                    processSelection(rect: fullRect, inWindow: screenFrame)
+                }
+            } else {
+                // Ignore click / Reset
+                delegate?.didSelectRect(.null) // Or cancel
+                // Actually, cancelSelection in controller handles orderOut.
+                // We should probably just call a "cancel" delegate method or do nothing?
+                // If we do nothing, the overlay stays up.
+                // The user probably wants to just restart selection/do nothing if they accidentally clicked.
+                
+                // Let's reset startPoint so they can drag again
+                startPoint = nil
+                currentPoint = nil
+                return
+            }
+        } else {
+            // Normal Selection
+             if let windowFrame = window?.frame {
+                let selectionRect = CGRect(x: x, y: y, width: w, height: h)
+                processSelection(rect: selectionRect, inWindow: windowFrame)
+             }
+        }
+    }
+    
+    private func processSelection(rect: CGRect, inWindow windowFrame: CGRect) {
             let globalRect = CGRect(
-                x: windowFrame.minX + x,
-                y: windowFrame.minY + y,
-                width: w,
-                height: h
+                x: windowFrame.minX + rect.minX,
+                y: windowFrame.minY + rect.minY,
+                width: rect.width,
+                height: rect.height
             )
             
             // To be safe, we should use CGWindowListCreateImage with the rect.
@@ -220,7 +254,6 @@ class SelectionView: NSView {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                 self.delegate?.didSelectRect(cgRect)
             }
-        }
     }
     
     private func updateLayerFrame() {
