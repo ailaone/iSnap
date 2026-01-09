@@ -103,7 +103,7 @@ struct FloatingToolbarView: View {
                 V3ToolbarIcon(
                     iconName: "copy-20-regular",
                     isSelected: false,
-                    tooltip: "Ctrl+C",
+                    tooltip: "Copy to clipboard",
                     action: onCopy
                 )
                 
