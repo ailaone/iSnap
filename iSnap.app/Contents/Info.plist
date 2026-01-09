@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>iSnap</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.ailadesign.iSnap</string>
+	<key>CFBundleName</key>
+	<string>iSnap</string>
+	<key>CFBundleDisplayName</key>
+	<string>iSnap</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleIconFile</key>
+	<string>icon</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSScreenRecordingUsageDescription</key>
+	<string>iSnap needs screen recording permissions to capture screenshots.</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>iSnap needs access to save screenshots.</string>
+</dict>
+</plist>

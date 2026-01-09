@@ -1,0 +1,89 @@
+{
+  "": {
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/master.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationPopovers.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationToolbar.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.swiftdeps"
+  },
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift": {
+    "dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.d",
+    "object": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.swift.o",
+    "swiftmodule": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView~partial.swiftmodule",
+    "swift-dependencies": "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.swiftdeps"
+  }
+}

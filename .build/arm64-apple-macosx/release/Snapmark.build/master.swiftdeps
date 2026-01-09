@@ -1,0 +1,17 @@
+version: "Apple Swift version 6.1.2 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)"
+options: "de702bcd36cac8ddff44694f7314650fe82c8efd7beba8982dd20afd66ccae89"
+build_start_time: [1766866393, 725709000]
+build_end_time: [1766866428, 365335000]
+inputs:
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift": !dirty [1766866284, 848062069]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift": !dirty [1766865455, 284962293]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift": !dirty [1766865394, 303792893]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift": !dirty [1766866069, 823568769]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift": !dirty [1766866289, 565117642]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift": !dirty [1766866067, 812702554]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift": !dirty [1766865346, 555292607]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift": !dirty [1766865348, 563824630]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift": !dirty [1766865447, 619700763]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift": !dirty [1766865427, 636090392]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift": !dirty [1766866362, 541954355]
+  "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift": !dirty [1766866064, 443873293]
