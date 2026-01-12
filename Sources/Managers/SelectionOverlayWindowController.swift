@@ -114,7 +114,7 @@ class SelectionView: NSView {
     
     // V2.0: Custom Larger Crosshair Cursor
     private lazy var customCursor: NSCursor = {
-        let size = NSSize(width: 24, height: 24) // Approx 25% larger than standard (16-18pt)
+        let size = NSSize(width: 28, height: 28) // Approx 25% larger than standard (16-18pt)
         let image = NSImage(size: size)
         image.lockFocus()
         

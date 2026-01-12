@@ -188,7 +188,9 @@ struct AnnotationView: View {
                 let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
                 
                 // Command-C for Copy
-                if flags == .command && event.charactersIgnoringModifiers?.lowercased() == "c" {
+                // V19.2: Robust Key Detection
+                // KeyCode 8 is 'C'
+                if flags.contains(.command) && (event.keyCode == 8 || event.charactersIgnoringModifiers?.lowercased() == "c") {
                    if self.editingTextID != nil { return event } // Allow text copy
                    
                    print("iSnap: Command-C detected, copying content...")
