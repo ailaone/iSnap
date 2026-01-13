@@ -1,4 +1,4 @@
-<img width="100" height="100" alt="logo-250px" src="https://github.com/user-attachments/assets/3705acee-283f-481b-b4dc-e32a34bb0f16" />
+<img width="80" height="80" alt="logo-250px" src="https://github.com/user-attachments/assets/3705acee-283f-481b-b4dc-e32a34bb0f16" />
 
 # iSnap
 
