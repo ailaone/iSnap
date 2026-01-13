@@ -1,0 +1,13 @@
+# macOS junk
+.DS_Store
+
+# Build artifacts
+iSnap.app
+dist
+.build
+DerivedData
+/tmp
+
+# Swift / Xcode noise
+*.xcuserstate
+*.xcworkspace
