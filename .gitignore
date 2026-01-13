@@ -11,3 +11,6 @@ DerivedData
 # Swift / Xcode noise
 *.xcuserstate
 *.xcworkspace
+.DS_Store
+CLAUDE.md
+GEMINI.md
