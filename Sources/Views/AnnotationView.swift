@@ -184,6 +184,9 @@ struct AnnotationView: View {
             // V5.0: Enhanced robustness - Use key codes instead of characters for consistent detection
             // Key Code 8 is 'C'
             let monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+                // V20.0: Fix Zombie Event Monitor
+                if let window = self.window, !window.isKeyWindow { return event }
+
                 let keyCode = event.keyCode
                 let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
                 
