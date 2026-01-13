@@ -11,3 +11,7 @@ DerivedData
 # Swift / Xcode noise
 *.xcuserstate
 *.xcworkspace
+
+# IDE AI files
+CLAUDE.md
+GEMINI.md
