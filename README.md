@@ -8,6 +8,12 @@ It’s designed for live reviews, design calls, and quick feedback loops — cap
 
 What started as a small frustration-driven side project turned into a fully working tool built through vibe-coding, real use, and iterative tinkering.
 
+## Download
+
+➡️ **[Download iSnap v0.1.0 for macOS](https://github.com/ailaone/iSnap/releases/download/v0.1.0/iSnap-v0.1.0-macos.zip)**
+
+Tested on **macOS Tahoe 26.2**
+
 ---
 
 ## What iSnap Does
