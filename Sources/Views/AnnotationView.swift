@@ -72,6 +72,9 @@ struct AnnotationView: View {
     
     // Track previous state for undo grouping
     @State private var previousState: UndoState? = nil
+    
+    // V0.2.0: Esc Key Alert State
+    @State private var showEscAlert = false
 
     
 
@@ -121,6 +124,9 @@ struct AnnotationView: View {
                     onSave: saveContent,
                     onSaveAs: saveAsContent,
                     onCopy: copyContent,
+                    onPreferences: {
+                        MenuBarManager.shared.openPreferences()
+                    },
                     onRefresh: {
                         saveState() 
                         drawingModel.items.removeAll()
@@ -174,7 +180,6 @@ struct AnnotationView: View {
             // Undo/Redo callback
             drawingModel.onStartInteraction = {
                 self.saveState()
-                self.saveState()
                 self.activePopover = nil // Auto-dismiss popover
                 self.commitEditing() // Commit text edit
             }
@@ -221,28 +226,17 @@ struct AnnotationView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("iSnapEscPressed"), object: window)) { _ in
-             // Esc pressed: If content exists, save it but don't close automatically? 
-             // User said closing should only be by clicking red dot or pressing escape.
-             // Wait, "closing should only be by clicking the red dot at top left or pressing escape"
-             // So Escape SHOULD close the window.
-             // But if I have edits, usually Escape might just cancel edits? 
-             // "Esc" usually closes the window in macOS tools.
-             // Current logic: if content -> saveAndClose, else -> close.
-             // Let's keep it as is for Esc, but maybe rename func call.
-             // Let's keep it as is for Esc, but maybe rename func call.
-             if !drawingModel.items.isEmpty {
-                 // saveContent() // Removed auto-save on Esc unless configured?
-                 // Wait, existing behavior was "Save Content then Close" if items existed.
-                 // We should revert this to "Close without save" unless configured, OR keep as fallback?
-                 // The user wants explicit options.
-                 // If options are OFF, Esc should just close (discard).
-                 // So we should NOT call saveContent here by default anymore if we want to respect the "Esc Key Action: Save screenshot" checkbox.
-                 // BUT, for safety, maybe we should ask?
-                 // The requirement says: "Esc Key Action" -> Save screenshot, Copy to clipboard.
-                 // If unchecked, it implies "Do nothing" (Just Close).
-                 
-                 window?.close()
+             // V0.2.0: Check settings and content
+             let settings = SettingsManager.shared
+             
+             // If action is configured, it's handled by 'iSnapPerformEscAction' notification.
+             // This notification is for "Cancel/Default" behavior (no action configured).
+             
+             if !drawingModel.items.isEmpty && !settings.escActionSave && !settings.escActionCopy {
+                 // Content exists and no auto-action configured -> Confirm with user
+                 showEscAlert = true
              } else {
+                 // No content or somehow fallthrough -> Close
                  window?.close()
              }
         }
@@ -266,6 +260,19 @@ struct AnnotationView: View {
             
             // Finally close
             window?.close()
+        }
+        .alert("Close without saving?", isPresented: $showEscAlert) {
+            Button("Save & Close") {
+                saveContent()
+                copyContent() // PRD: "Save & Close (saves annotated image, copies to clipboard, closes window)"
+                window?.close()
+            }
+            Button("Discard", role: .destructive) {
+                window?.close()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("You have unsaved annotations. Do you want to save them before closing?")
         }
     }
     
@@ -1278,19 +1285,14 @@ class CanvasView: NSView {
     
     var onErase: ((CGPoint) -> Void)? 
     
-    // DEBUG LOGGING
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        print("DEBUG: CanvasView init with frame: \(frameRect)")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    override var frame: NSRect {
-        didSet { print("DEBUG: CanvasView frame changed: \(frame)") }
-    }
     var onShapeChange: ((CGPoint?, CGPoint?) -> Void)?
     var onShapeEnd: ((CGPoint, CGPoint) -> Void)?
     var onTextClick: ((CGPoint) -> Void)?
@@ -1462,7 +1464,6 @@ class CanvasView: NSView {
             if currentTool == .eraser { onErase?(normalized) }
             
         case .shape:
-            print("DEBUG: Starting Shape Drag at \(normalized)")
             dragStartPoint = normalized
             onShapeChange?(dragStartPoint, dragStartPoint)
             

@@ -13,7 +13,7 @@ class SelectionOverlayWindowController: NSWindowController {
     convenience init() {
         // Create a borderless, transparent window covering the entire screen
         let screen = NSScreen.main ?? NSScreen.screens[0]
-        let window = iSnapWindow( /// Use iSnapWindow to capture Esc
+        let window = iSnapPanel( /// NSPanel subclass so .nonactivatingPanel works correctly
             contentRect: screen.frame,
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
@@ -26,7 +26,15 @@ class SelectionOverlayWindowController: NSWindowController {
         window.hasShadow = false
         window.ignoresMouseEvents = false
         window.acceptsMouseMovedEvents = true // V1.5: Ensure we get mouse moved events for cursor update
-        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        
+        // V:0.2.0 Fix Focus Stealing
+        // Prevent activation to allow capturing tooltips/popovers
+        window.collectionBehavior = [
+            .canJoinAllSpaces, 
+            .stationary, 
+            .ignoresCycle, 
+            .fullScreenAuxiliary
+        ]
         
         self.init(window: window)
         
@@ -37,11 +45,6 @@ class SelectionOverlayWindowController: NSWindowController {
         selectionView = SelectionView(frame: screen.frame)
         selectionView?.delegate = self
         window.contentView = selectionView
-    }
-    
-    func selectionView(_ view: SelectionView, didSelectRect rect: CGRect, withImage image: CGImage?) {
-        window?.orderOut(nil)
-        onSelectionComplete?(rect, image)
     }
     
     func cancelSelection() {
@@ -57,7 +60,7 @@ class SelectionOverlayWindowController: NSWindowController {
         }
         
         window?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        NSApp.activate(ignoringOtherApps: false) // V0.2.0: Don't force activation to preserve tooltips
         window?.invalidateCursorRects(for: selectionView!)
     }
     

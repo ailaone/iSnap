@@ -11,6 +11,7 @@ struct FloatingToolbarView: View {
     var onSave: () -> Void
     var onSaveAs: () -> Void
     var onCopy: () -> Void
+    var onPreferences: () -> Void // V0.2.0
     var onRefresh: () -> Void
     
     // Environment for color scheme
@@ -105,6 +106,14 @@ struct FloatingToolbarView: View {
                     isSelected: false,
                     tooltip: "Copy to clipboard",
                     action: onCopy
+                )
+                
+                // V0.2.0: Preferences
+                V3ToolbarIcon(
+                    iconName: "settings-20-regular",
+                    isSelected: false,
+                    tooltip: "Preferences",
+                    action: onPreferences
                 )
                 
                 V3ToolbarIcon(

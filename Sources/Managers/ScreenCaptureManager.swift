@@ -5,18 +5,8 @@ import AppKit
 
 class ScreenCaptureManager: NSObject, @unchecked Sendable {
     static let shared = ScreenCaptureManager()
-    
-    // Check for screen recording permission
-    func hasScreenRecordingPermission() -> Bool {
-        return CGPreflightScreenCaptureAccess()
-    }
-    
-    // Request permission (this usually just triggers the prompt if not already given)
-    func requestScreenRecordingPermission() {
-        CGRequestScreenCaptureAccess()
-    }
-    
-    // Legacy synchronous capture (kept for fallback)
+
+    // Legacy synchronous capture (fallback for macOS < 14)
     func captureRegionSync(_ rect: CGRect) -> CGImage? {
         return CGWindowListCreateImage(
             rect,
@@ -25,97 +15,88 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
             .bestResolution
         )
     }
-    
-    // Async capture using ScreenCaptureKit (macOS 14+) for proper color handling
-    // The rect passed here is expected to be in CG coordinates (top-left origin, global)
+
+    // Primary capture method. Uses ScreenCaptureKit on macOS 14+.
     func captureRegion(_ rect: CGRect, completion: @escaping (CGImage?) -> Void) {
-        // V20: Force Legacy Capture (CGWindowListCreateImage) to fix Shadows & Sharpness
-        // SCK seems to be filtering shadows or compressing resolution.
-        // CGWindowListCreateImage captures the raw screen buffer exactly as seen.
-        /*
         if #available(macOS 14.0, *) {
             Task {
                 do {
                     let image = try await captureWithSCK(rect: rect)
+                    print("iSnap: SCK capture succeeded")
                     DispatchQueue.main.async {
                         completion(image)
                     }
                 } catch {
-                    print("SCK capture failed: \(error). Falling back to CGWindowListCreateImage.")
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        completion(self.captureRegionSync(rect))
+                    print("iSnap: SCK capture failed: \(error)")
+                    // Fallback to legacy API
+                    let fallback = self.captureRegionSync(rect)
+                    print("iSnap: CGWindowListCreateImage fallback returned \(fallback != nil ? "image" : "nil")")
+                    DispatchQueue.main.async {
+                        completion(fallback)
                     }
                 }
             }
         } else {
-        */
-            // Legacy path (Primary now)
             DispatchQueue.global(qos: .userInitiated).async {
                 let image = self.captureRegionSync(rect)
                 DispatchQueue.main.async {
                     completion(image)
                 }
             }
-        // }
+        }
     }
-    
+
     @available(macOS 14.0, *)
     private func captureWithSCK(rect: CGRect) async throws -> CGImage {
-        let content = try await SCShareableContent.current
-        
-        // Find the screen containing the rect (in CG coords, so we need to find by checking display frame)
-        // CG coords have origin at top-left of primary display. SCDisplay.frame should also be in similar space.
+        print("iSnap: SCK requesting shareable content...")
+        let content = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true)
+        print("iSnap: SCK got \(content.displays.count) displays, \(content.windows.count) windows")
+
         guard let display = content.displays.first(where: { $0.frame.intersects(rect) }) else {
-            throw NSError(domain: "ScreenCaptureManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "No display found for rect"])
+            // If no display intersects, try the main display
+            guard let display = content.displays.first else {
+                throw NSError(domain: "ScreenCaptureManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "No displays found"])
+            }
+            print("iSnap: No display intersects rect \(rect), using main display \(display.frame)")
+            return try await performSCKCapture(display: display, rect: rect, content: content)
         }
-        
+
+        print("iSnap: Using display \(display.frame) for rect \(rect)")
+        return try await performSCKCapture(display: display, rect: rect, content: content)
+    }
+
+    @available(macOS 14.0, *)
+    private func performSCKCapture(display: SCDisplay, rect: CGRect, content: SCShareableContent) async throws -> CGImage {
         // Convert global CG rect to display-local coordinates
-        // SCK sourceRect is relative to the display's origin
         let localRect = CGRect(
             x: rect.origin.x - display.frame.origin.x,
             y: rect.origin.y - display.frame.origin.y,
             width: rect.width,
             height: rect.height
         )
-        
-        // Find our app to exclude from capture
+
+        // Exclude iSnap's own windows from capture
         let currentPID = ProcessInfo.processInfo.processIdentifier
         let currentApp = content.applications.first { $0.processID == currentPID }
-        
+
         let filter: SCContentFilter
         if let app = currentApp {
             filter = SCContentFilter(display: display, excludingApplications: [app], exceptingWindows: [])
         } else {
             filter = SCContentFilter(display: display, excludingWindows: [])
         }
-        
-        // Get proper scale factor
+
         let scaleFactor = filter.pointPixelScale
-        
-        print("SCK Capture - Scale: \(scaleFactor), LocalRect: \(localRect)")
-        
+        print("iSnap: SCK localRect=\(localRect), scale=\(scaleFactor)")
+
         let config = SCStreamConfiguration()
         config.sourceRect = localRect
         config.width = Int(localRect.width * CGFloat(scaleFactor))
         config.height = Int(localRect.height * CGFloat(scaleFactor))
-        
-        // V18: Use P3 Color Space for authentic shadow/color reproduction
-        config.colorSpaceName = CGColorSpace.displayP3
+        config.colorSpaceName = CGColorSpace.sRGB
         config.showsCursor = false
-        
-        // V19: Capture EVERYTHING (including our app if visible, though overlay is hidden)
-        // Using "excludingApplications" might cause SCK to omit shadows cast by other apps onto our (transparent) windows? 
-        // Or simply omitting compositing layers. Using a simple display filter is safest for "Screen Capture".
-        let allContentFilter = SCContentFilter(display: display, excludingWindows: [])
-        
-        let image = try await SCScreenshotManager.captureImage(contentFilter: allContentFilter, configuration: config)
+
+        let image = try await SCScreenshotManager.captureImage(contentFilter: filter, configuration: config)
         return image
     }
-    
-    // Helper to get screen containing the mouse or a specific point
-    func screen(containing point: CGPoint) -> NSScreen? {
-        return NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) }
-    }
 }
-

@@ -17,213 +17,261 @@
 
   ],
   "swiftCommands" : {
-    "C.Snapmark-arm64-apple-macosx15.0-debug.module" : {
-      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
-      "fileList" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/sources",
-      "importPath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Modules",
+    "C.iSnap-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/sources",
+      "importPath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/Modules",
       "inputs" : [
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/AnnotationWindowController.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/CaptureFlowManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ClipboardManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/FileSaveManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/HotkeyManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/MenuBarManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ScreenCaptureManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SelectionOverlayWindowController.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SettingsManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapPanel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationPopovers.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapWindow.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationToolbar.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationPopovers.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationToolbar.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/FocusableTextField.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/sources"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/PreferencesView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/iSnapApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/sources"
         }
       ],
       "isLibrary" : false,
-      "moduleName" : "Snapmark",
-      "moduleOutputPath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Modules/Snapmark.swiftmodule",
+      "moduleName" : "iSnap",
+      "moduleOutputPath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/Modules/iSnap.swiftmodule",
       "objects" : [
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.swift.o",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.swift.o"
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationWindowController.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/CaptureFlowManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ClipboardManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FileSaveManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/HotkeyManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/MenuBarManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ScreenCaptureManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SelectionOverlayWindowController.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SettingsManager.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapPanel.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapWindow.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationPopovers.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationToolbar.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationView.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FocusableTextField.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/PreferencesView.swift.o",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapApp.swift.o"
       ],
       "otherArguments" : [
         "-target",
-        "arm64-apple-macosx14.0",
+        "arm64-apple-macosx13.0",
+        "-incremental",
         "-enable-batch-mode",
+        "-serialize-diagnostics",
         "-index-store-path",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/index/store",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/index/store",
         "-Onone",
         "-enable-testing",
         "-j16",
         "-DSWIFT_PACKAGE",
         "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
         "-module-cache-path",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/ModuleCache",
+        "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/ModuleCache",
         "-parseable-output",
         "-Xfrontend",
         "-entry-point-function-name",
         "-Xfrontend",
-        "Snapmark_main",
-        "-color-diagnostics",
+        "iSnap_main",
         "-swift-version",
         "5",
-        "-F",
-        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
         "-sdk",
-        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
         "-g",
         "-Xcc",
         "-isysroot",
         "-Xcc",
-        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
         "-Xcc",
         "-fPIC",
         "-Xcc",
         "-g",
         "-package-name",
-        "snapmark"
+        "isnap"
       ],
-      "outputFileMapPath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/output-file-map.json",
+      "outputFileMapPath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/output-file-map.json",
       "outputs" : [
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationWindowController.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/CaptureFlowManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ClipboardManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FileSaveManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/HotkeyManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/MenuBarManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ScreenCaptureManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SelectionOverlayWindowController.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SettingsManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapPanel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapWindow.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationPopovers.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationToolbar.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Modules/Snapmark.swiftmodule"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FocusableTextField.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/PreferencesView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/Modules/iSnap.swiftmodule"
         }
       ],
       "prepareForIndexing" : false,
       "sources" : [
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationPopovers.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationToolbar.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift",
-        "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift"
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/AnnotationWindowController.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/CaptureFlowManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ClipboardManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/FileSaveManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/HotkeyManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/MenuBarManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ScreenCaptureManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SelectionOverlayWindowController.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SettingsManager.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapPanel.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapWindow.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationPopovers.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationToolbar.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationView.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Views/FocusableTextField.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/Views/PreferencesView.swift",
+        "/Users/arthurazoulai/Github/iSnap/Sources/iSnapApp.swift"
       ],
-      "tempsPath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build",
+      "tempsPath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build",
       "wholeModuleOptimization" : false
     }
   },
@@ -231,71 +279,91 @@
 
   },
   "swiftTargetScanArgs" : {
-    "Snapmark" : [
-      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+    "iSnap" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
       "-module-name",
-      "Snapmark",
+      "iSnap",
       "-package-name",
-      "snapmark",
-      "-incremental",
+      "isnap",
       "-c",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationPopovers.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationToolbar.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/AnnotationWindowController.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/CaptureFlowManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ClipboardManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/FileSaveManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/HotkeyManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/MenuBarManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ScreenCaptureManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SelectionOverlayWindowController.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SettingsManager.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapPanel.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapWindow.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationPopovers.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationToolbar.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationView.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Views/FocusableTextField.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/Views/PreferencesView.swift",
+      "/Users/arthurazoulai/Github/iSnap/Sources/iSnapApp.swift",
       "-I",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Modules",
+      "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/Modules",
       "-target",
-      "arm64-apple-macosx14.0",
+      "arm64-apple-macosx13.0",
+      "-incremental",
       "-enable-batch-mode",
+      "-serialize-diagnostics",
       "-index-store-path",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/index/store",
+      "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/index/store",
       "-Onone",
       "-enable-testing",
       "-j16",
       "-DSWIFT_PACKAGE",
       "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
       "-module-cache-path",
-      "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/ModuleCache",
+      "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/ModuleCache",
       "-parseable-output",
       "-Xfrontend",
       "-entry-point-function-name",
       "-Xfrontend",
-      "Snapmark_main",
-      "-color-diagnostics",
+      "iSnap_main",
       "-swift-version",
       "5",
-      "-F",
-      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
       "-sdk",
-      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
       "-g",
       "-Xcc",
       "-isysroot",
       "-Xcc",
-      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
       "-Xcc",
       "-fPIC",
       "-Xcc",
       "-g",
       "-package-name",
-      "snapmark",
+      "isnap",
       "-driver-use-frontend-path",
-      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
     ]
   },
   "targetDependencyMap" : {
-    "Snapmark" : [
+    "iSnap" : [
 
     ]
   },
@@ -306,10 +374,12 @@
 
   },
   "traitConfiguration" : {
-    "enableAllTraits" : false
+    "default" : {
+
+    }
   },
   "writeCommands" : {
-    "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark-entitlement.plist" : {
+    "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap-entitlement.plist" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
         {
@@ -321,9 +391,9 @@
           "name" : "<com.apple.security.get-task-allow>"
         }
       ],
-      "outputFilePath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark-entitlement.plist"
+      "outputFilePath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap-entitlement.plist"
     },
-    "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/sources" : {
+    "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/sources" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
         {
@@ -332,64 +402,76 @@
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/AnnotationWindowController.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/AnnotationWindowController.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/CaptureFlowManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/CaptureFlowManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ClipboardManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ClipboardManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/FileSaveManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/FileSaveManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/HotkeyManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/HotkeyManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/MenuBarManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/MenuBarManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/ScreenCaptureManager.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/ScreenCaptureManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SelectionOverlayWindowController.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SelectionOverlayWindowController.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Managers/SnapmarkWindow.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/SettingsManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/SnapmarkApp.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapPanel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationPopovers.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Managers/iSnapWindow.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationToolbar.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationPopovers.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/AnnotationView.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationToolbar.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/Sources/Views/PreferencesView.swift"
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/AnnotationView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/FocusableTextField.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/Views/PreferencesView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/Sources/iSnapApp.swift"
         }
       ],
-      "outputFilePath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/sources"
+      "outputFilePath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/sources"
     },
-    "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.product/Objects.LinkFileList" : {
+    "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.product/Objects.LinkFileList" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
         {
@@ -398,64 +480,76 @@
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationPopovers.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationPopovers.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationToolbar.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationToolbar.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationView.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/AnnotationWindowController.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/AnnotationWindowController.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/CaptureFlowManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/CaptureFlowManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ClipboardManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ClipboardManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/FileSaveManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FileSaveManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/HotkeyManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/FocusableTextField.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/MenuBarManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/HotkeyManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/PreferencesView.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/MenuBarManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/ScreenCaptureManager.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/PreferencesView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SelectionOverlayWindowController.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/ScreenCaptureManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkApp.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SelectionOverlayWindowController.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.build/SnapmarkWindow.swift.o"
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/SettingsManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapPanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.build/iSnapWindow.swift.o"
         }
       ],
-      "outputFilePath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/Snapmark.product/Objects.LinkFileList"
+      "outputFilePath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/iSnap.product/Objects.LinkFileList"
     },
-    "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
+    "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
       "alwaysOutOfDate" : true,
       "inputs" : [
         {
@@ -464,10 +558,10 @@
         },
         {
           "kind" : "file",
-          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
         }
       ],
-      "outputFilePath" : "/Volumes/aila/AILA Design LLC/01_Projects/10_iSnip_AppDev/Snapmark/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+      "outputFilePath" : "/Users/arthurazoulai/Github/iSnap/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
     }
   }
 }

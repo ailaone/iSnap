@@ -2,10 +2,12 @@ import AppKit
 import SwiftUI
 
 class MenuBarManager: NSObject {
+    static let shared = MenuBarManager()
+    
     private var statusItem: NSStatusItem
     private var menu: NSMenu
 
-    override init() {
+    private override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         menu = NSMenu()
         
@@ -29,8 +31,6 @@ class MenuBarManager: NSObject {
                     button.image = NSImage(systemSymbolName: "viewfinder", accessibilityDescription: "iSnap")
                 }
             }
-            button.action = #selector(statusBarButtonClicked(_:))
-            button.target = self
         }
     }
 
@@ -55,12 +55,6 @@ class MenuBarManager: NSObject {
         statusItem.menu = menu
     }
     
-    @objc func statusBarButtonClicked(_ sender: NSStatusBarButton) {
-        statusItem.menu = menu
-        statusItem.button?.performClick(nil)
-        statusItem.menu = nil // specific hack to allow primary click interaction if we want it later, but standard menu behavior is fine for now
-    }
-
     @objc func captureScreenshot() {
         print("Capture Triggered")
         CaptureFlowManager.shared.startCapture()

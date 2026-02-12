@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Ensure the app doesn't show in the dock (Info.plist LSUIElement should handle this too, but for safety)
         NSApp.setActivationPolicy(.accessory)
         
-        menuBarManager = MenuBarManager()
+        menuBarManager = MenuBarManager.shared
         HotkeyManager.shared.registerDefaultHotkey()
     }
 }
