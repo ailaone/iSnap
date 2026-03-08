@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import ServiceManagement
 
 class SettingsManager: ObservableObject {
     static let shared = SettingsManager()
@@ -34,7 +35,10 @@ class SettingsManager: ObservableObject {
     }
     
     @Published var openOnLogin: Bool {
-        didSet { UserDefaults.standard.set(openOnLogin, forKey: keyOpenOnLogin) }
+        didSet {
+            UserDefaults.standard.set(openOnLogin, forKey: keyOpenOnLogin)
+            setLoginItemEnabled(openOnLogin)
+        }
     }
     
     private init() {
@@ -45,5 +49,32 @@ class SettingsManager: ObservableObject {
         self.openAfterCapture = UserDefaults.standard.object(forKey: keyOpenAfterCapture) as? Bool ?? true
         self.saveLocation = UserDefaults.standard.string(forKey: keySaveLocation) ?? "~/Pictures/iSnap/"
         self.openOnLogin = UserDefaults.standard.bool(forKey: keyOpenOnLogin)
+
+        applyStoredLoginItemPreference()
+    }
+
+    private func applyStoredLoginItemPreference() {
+        setLoginItemEnabled(openOnLogin)
+    }
+
+    private func setLoginItemEnabled(_ enabled: Bool) {
+        guard #available(macOS 13.0, *) else { return }
+
+        if enabled && !Bundle.main.bundleURL.path.hasPrefix("/Applications/") {
+            print("Open at Login requires iSnap to be installed in /Applications.")
+            return
+        }
+
+        do {
+            if enabled {
+                if SMAppService.mainApp.status != .enabled {
+                    try SMAppService.mainApp.register()
+                }
+            } else if SMAppService.mainApp.status == .enabled {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
+            print("Failed to \(enabled ? "enable" : "disable") login item: \(error)")
+        }
     }
 }

@@ -66,27 +66,9 @@ class MenuBarManager: NSObject {
         CaptureFlowManager.shared.startCapture()
     }
 
-    private var preferencesWindow: NSWindow?
-
     @objc func openPreferences() {
         print("Open Preferences")
-        if preferencesWindow == nil {
-            let window = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 450, height: 250),
-                styleMask: [.titled, .closable],
-                backing: .buffered,
-                defer: false
-            )
-            window.title = "Preferences"
-            window.center()
-            window.isReleasedWhenClosed = false
-            window.level = .floating + 1 // V12.2: Ensure above annotation window
-            window.contentView = NSHostingView(rootView: PreferencesView())
-            preferencesWindow = window
-        }
-        
-        preferencesWindow?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        PreferencesWindowManager.shared.openPreferences()
     }
 
     @objc func quitApp() {

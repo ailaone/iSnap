@@ -11,6 +11,7 @@ struct FloatingToolbarView: View {
     var onSave: () -> Void
     var onSaveAs: () -> Void
     var onCopy: () -> Void
+    var onPreferences: () -> Void
     var onRefresh: () -> Void
     
     // Environment for color scheme
@@ -106,6 +107,12 @@ struct FloatingToolbarView: View {
                     tooltip: "Copy to clipboard",
                     action: onCopy
                 )
+
+                ToolbarSystemIcon(
+                    systemName: "gearshape",
+                    tooltip: "Preferences",
+                    action: onPreferences
+                )
                 
                 V3ToolbarIcon(
                     iconName: "REFRESH-arrow-sync-20-regular",
@@ -160,6 +167,31 @@ struct FloatingToolbarView: View {
         default:
             return false
         }
+    }
+}
+
+struct ToolbarSystemIcon: View {
+    let systemName: String
+    let tooltip: String
+    let action: () -> Void
+
+    @State private var isHovering = false
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.primary.opacity(isHovering ? 1.0 : 0.7))
+                .scaleEffect(isHovering ? 1.1 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: isHovering)
+                .frame(width: 40, height: 40)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .onHover { hover in
+            isHovering = hover
+        }
+        .modifier(CustomTooltip(text: tooltip))
     }
 }
 

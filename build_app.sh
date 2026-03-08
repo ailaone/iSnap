@@ -1,19 +1,32 @@
 #!/bin/bash
 
-# Build the executable
-# Use /tmp to avoid network drive locking issues
-swift build -c release --build-path /tmp/iSnapBuild
+set -euo pipefail
 
-# Define variables
 APP_NAME="iSnap"
-BUILD_DIR="/tmp/iSnapBuild/release"
+INFO_PLIST="Resources/Info.plist"
+BUILD_PATH="/tmp/iSnapBuild"
+BUILD_DIR="${BUILD_PATH}/apple/Products/Release"
 APP_BUNDLE="${APP_NAME}.app"
 CONTENTS_DIR="${APP_BUNDLE}/Contents"
 MACOS_DIR="${CONTENTS_DIR}/MacOS"
 RESOURCES_DIR="${CONTENTS_DIR}/Resources"
+SIGN_APP="${ISNAP_SIGN_APP:-0}"
+SIGNING_IDENTITY="${ISNAP_SIGNING_IDENTITY:-}"
+
+VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${INFO_PLIST}")
+BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "${INFO_PLIST}")
+
+echo "Building ${APP_NAME} ${VERSION} (${BUILD_NUMBER})..."
+
+# Build a universal binary for Apple Silicon and Intel Macs.
+swift build -c release \
+  --arch arm64 \
+  --arch x86_64 \
+  --build-path "${BUILD_PATH}"
 
 # Create App Bundle Structure
 echo "Creating App Bundle..."
+rm -rf "${APP_BUNDLE}"
 mkdir -p "${MACOS_DIR}"
 mkdir -p "${RESOURCES_DIR}"
 
@@ -62,6 +75,19 @@ find "${RESOURCES_DIR}" -name ".DS_Store" -delete
 
 # Metadata
 echo "APPL????" > "${CONTENTS_DIR}/PkgInfo"
+
+if [[ "${SIGN_APP}" == "1" ]]; then
+    if [[ -z "${SIGNING_IDENTITY}" ]]; then
+        echo "Error: ISNAP_SIGN_APP=1 but ISNAP_SIGNING_IDENTITY is not set."
+        exit 1
+    fi
+
+    echo "Signing ${APP_BUNDLE}..."
+    codesign --deep --force --verify --verbose \
+        --options runtime \
+        --sign "${SIGNING_IDENTITY}" \
+        "${APP_BUNDLE}"
+fi
 
 echo "Build Complete: ${APP_BUNDLE}"
 echo "To run: open ${APP_BUNDLE}"

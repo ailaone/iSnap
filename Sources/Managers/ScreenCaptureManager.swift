@@ -25,6 +25,19 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
             .bestResolution
         )
     }
+
+    func captureDisplaySync(_ screen: NSScreen) -> CGImage? {
+        let screenFrame = screen.frame
+        let primaryScreenHeight = NSScreen.screens[0].frame.height
+        let flippedY = primaryScreenHeight - (screenFrame.origin.y + screenFrame.height)
+        let cgRect = CGRect(
+            x: screenFrame.origin.x,
+            y: flippedY,
+            width: screenFrame.width,
+            height: screenFrame.height
+        )
+        return captureRegionSync(cgRect)
+    }
     
     // Async capture using ScreenCaptureKit (macOS 14+) for proper color handling
     // The rect passed here is expected to be in CG coordinates (top-left origin, global)
@@ -118,4 +131,3 @@ class ScreenCaptureManager: NSObject, @unchecked Sendable {
         return NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) }
     }
 }
-

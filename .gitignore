@@ -17,3 +17,6 @@ CLAUDE.md
 GEMINI.md
 .DS_Store
 history.md
+AGENTS.md
+.cache/
+RELEASE_PREP_v0.2.0.md

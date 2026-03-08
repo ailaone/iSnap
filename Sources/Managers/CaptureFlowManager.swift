@@ -7,6 +7,7 @@ class CaptureFlowManager: ObservableObject {
     
     private var selectionController: SelectionOverlayWindowController?
     private var annotationController: AnnotationWindowController?
+    private var previouslyFrontmostApp: NSRunningApplication?
     
     private var isCapturing = false
     
@@ -42,13 +43,25 @@ class CaptureFlowManager: ObservableObject {
             */
             return
         }
+
+        previouslyFrontmostApp = NSWorkspace.shared.frontmostApplication
         
-        // 2. Start selection
+        guard let screen = currentCaptureScreen(),
+              let frozenImage = ScreenCaptureManager.shared.captureDisplaySync(screen) else {
+            print("Failed to capture frozen screen snapshot")
+            return
+        }
+
+        // 2. Start selection over the frozen snapshot.
         isCapturing = true
-        selectionController = SelectionOverlayWindowController()
+        selectionController = SelectionOverlayWindowController(screen: screen, frozenImage: frozenImage)
         selectionController?.onSelectionComplete = { [weak self] rect, image in
             self?.isCapturing = false
-            guard let self = self, let image = image else { return }
+            guard let self = self else { return }
+            guard let image = image else {
+                self.restorePreviouslyFrontmostAppIfNeeded()
+                return
+            }
             
             // V1.3: Immediate Save & Clipboard
             _ = FileSaveManager.shared.saveBaseScreenshot(image)
@@ -71,5 +84,18 @@ class CaptureFlowManager: ObservableObject {
             self.annotationController = AnnotationWindowController(image: image)
             self.annotationController?.showWindow(nil)
         }
+    }
+
+    private func currentCaptureScreen() -> NSScreen? {
+        let mouseLocation = NSEvent.mouseLocation
+        return ScreenCaptureManager.shared.screen(containing: mouseLocation) ?? NSScreen.main ?? NSScreen.screens.first
+    }
+
+    private func restorePreviouslyFrontmostAppIfNeeded() {
+        defer { previouslyFrontmostApp = nil }
+
+        guard let app = previouslyFrontmostApp else { return }
+        if app.processIdentifier == ProcessInfo.processInfo.processIdentifier { return }
+        app.activate(options: [.activateIgnoringOtherApps])
     }
 }

@@ -10,6 +10,7 @@ struct AnnotationView: View {
     
     // V5.0: Event Monitor Resource Management
     @State private var eventMonitor: Any?
+    @State private var hasMarkupChanges = false
 
     
     @StateObject private var drawingModel = DrawingModel()
@@ -121,10 +122,13 @@ struct AnnotationView: View {
                     onSave: saveContent,
                     onSaveAs: saveAsContent,
                     onCopy: copyContent,
+                    onPreferences: { PreferencesWindowManager.shared.openPreferences() },
                     onRefresh: {
                         saveState() 
+                        hasMarkupChanges = !drawingModel.items.isEmpty
                         drawingModel.items.removeAll()
                         editingTextID = nil
+                        selectedAnnotationID = nil
                     }
                 )
                 .overlay(alignment: .bottom) {
@@ -159,12 +163,12 @@ struct AnnotationView: View {
             
         } // End Root VStack
         .background(Color.white.opacity(0.85).ignoresSafeArea()) // V8.3: Unified Background (Toolbar sits ON window)
-        .frame(minWidth: 540, minHeight: 400) // SwiftUI Constraints
+        .frame(minWidth: 620, minHeight: 400) // SwiftUI Constraints
 
         .onAppear {
             // Enforce Min Window Size based on Toolbar Width
             // Toolbar width is approx 500-520. Add padding.
-            let minToolbarWidth: CGFloat = 540 
+            let minToolbarWidth: CGFloat = 620 
             let minHeight: CGFloat = 400 // Image + Toolbar
             
             // We do NOT enforce image width anymore (Hybrid Scaling)
@@ -174,9 +178,12 @@ struct AnnotationView: View {
             // Undo/Redo callback
             drawingModel.onStartInteraction = {
                 self.saveState()
-                self.saveState()
+                self.hasMarkupChanges = true
                 self.activePopover = nil // Auto-dismiss popover
                 self.commitEditing() // Commit text edit
+            }
+            drawingModel.onChange = {
+                self.hasMarkupChanges = true
             }
             
             // Monitor for delete key
@@ -205,6 +212,7 @@ struct AnnotationView: View {
                     if self.editingTextID != nil { return event } // Don't delete while typing text
                     if let id = selectedAnnotationID {
                         self.saveState() // Save before delete
+                        self.hasMarkupChanges = true
                         drawingModel.items.removeAll { $0.id == id }
                         selectedAnnotationID = nil
                         return nil // Consume event
@@ -221,51 +229,22 @@ struct AnnotationView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("iSnapEscPressed"), object: window)) { _ in
-             // Esc pressed: If content exists, save it but don't close automatically? 
-             // User said closing should only be by clicking red dot or pressing escape.
-             // Wait, "closing should only be by clicking the red dot at top left or pressing escape"
-             // So Escape SHOULD close the window.
-             // But if I have edits, usually Escape might just cancel edits? 
-             // "Esc" usually closes the window in macOS tools.
-             // Current logic: if content -> saveAndClose, else -> close.
-             // Let's keep it as is for Esc, but maybe rename func call.
-             // Let's keep it as is for Esc, but maybe rename func call.
-             if !drawingModel.items.isEmpty {
-                 // saveContent() // Removed auto-save on Esc unless configured?
-                 // Wait, existing behavior was "Save Content then Close" if items existed.
-                 // We should revert this to "Close without save" unless configured, OR keep as fallback?
-                 // The user wants explicit options.
-                 // If options are OFF, Esc should just close (discard).
-                 // So we should NOT call saveContent here by default anymore if we want to respect the "Esc Key Action: Save screenshot" checkbox.
-                 // BUT, for safety, maybe we should ask?
-                 // The requirement says: "Esc Key Action" -> Save screenshot, Copy to clipboard.
-                 // If unchecked, it implies "Do nothing" (Just Close).
-                 
-                 window?.close()
-             } else {
-                 window?.close()
-             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("iSnapPerformEscAction"), object: window)) { _ in
-            // Handle configured Esc actions
-            let settings = SettingsManager.shared
-            
-            // We need to commit current text if editing
             if editingTextID != nil {
                 commitEditing()
             }
-            
-            // Actions
-            if settings.escActionSave {
-                _ = FileSaveManager.shared.saveAnnotatedScreenshot(renderCompositeImage())
+
+            if !hasMarkupChanges {
+                window?.close()
+                return
             }
-            
-            if settings.escActionCopy {
-                ClipboardManager.shared.copyToClipboard(renderCompositeImage())
+
+            let settings = SettingsManager.shared
+            if settings.escActionSave || settings.escActionCopy {
+                performConfiguredEscActionsAndClose()
+                return
             }
-            
-            // Finally close
-            window?.close()
+
+            presentDiscardConfirmation()
         }
     }
     
@@ -466,7 +445,7 @@ struct AnnotationView: View {
         let composite = renderCompositeImage()
         _ = FileSaveManager.shared.saveAnnotatedScreenshot(composite)
         ClipboardManager.shared.copyToClipboard(composite)
-        // window?.close() // Removed as per user request
+        hasMarkupChanges = false
     }
     
     // V5.0: Copy Support
@@ -506,6 +485,55 @@ struct AnnotationView: View {
             // Fallback: Ensure it floats on top if we can't attach as sheet
             savePanel.level = .modalPanel
             savePanel.begin(completionHandler: completionHandler)
+        }
+    }
+
+    private func performConfiguredEscActionsAndClose() {
+        let composite = renderCompositeImage()
+        let settings = SettingsManager.shared
+
+        if settings.escActionSave {
+            _ = FileSaveManager.shared.saveAnnotatedScreenshot(composite)
+        }
+
+        if settings.escActionCopy {
+            ClipboardManager.shared.copyToClipboard(composite)
+        }
+
+        hasMarkupChanges = false
+        window?.close()
+    }
+
+    private func saveCopyAndClose() {
+        let composite = renderCompositeImage()
+        _ = FileSaveManager.shared.saveAnnotatedScreenshot(composite)
+        ClipboardManager.shared.copyToClipboard(composite)
+        hasMarkupChanges = false
+        window?.close()
+    }
+
+    private func presentDiscardConfirmation() {
+        guard let window else {
+            return
+        }
+
+        let alert = NSAlert()
+        alert.messageText = "Close without saving?"
+        alert.informativeText = "You have markup changes that will be lost if you close now."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Save & Close")
+        alert.addButton(withTitle: "Discard")
+        alert.addButton(withTitle: "Cancel")
+
+        alert.beginSheetModal(for: window) { response in
+            switch response {
+            case .alertFirstButtonReturn:
+                saveCopyAndClose()
+            case .alertSecondButtonReturn:
+                self.window?.close()
+            default:
+                break
+            }
         }
     }
     
@@ -710,6 +738,7 @@ struct AnnotationView: View {
         
         // Restore
         drawingModel.items = lastState.items
+        hasMarkupChanges = true
     }
     
     private func redo() {
@@ -720,6 +749,7 @@ struct AnnotationView: View {
         
         // Restore
         drawingModel.items = nextState.items
+        hasMarkupChanges = true
     }
 
 }
@@ -992,6 +1022,7 @@ class DrawingModel: ObservableObject {
     @Published var items: [AnnotationItem] = []
     
     var onStartInteraction: (() -> Void)?
+    var onChange: (() -> Void)?
     
     struct Stroke: Identifiable {
         let id = UUID() // V2.1: Add ID for object erasing
@@ -1018,13 +1049,15 @@ class DrawingModel: ObservableObject {
                     width: text.size.width + 10, // expanded hit area 
                     height: text.size.height + 10
                  ).insetBy(dx: -5, dy: -5)
-                 return rect.contains(point)
+                return rect.contains(point)
             }
         }
+        onChange?()
     }
     
     func addItem(_ item: AnnotationItem) {
         items.append(item)
+        onChange?()
     }
     
     func getItem(id: UUID) -> AnnotationItem? {
@@ -1034,6 +1067,7 @@ class DrawingModel: ObservableObject {
     func updateItem(_ item: AnnotationItem) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item
+            onChange?()
         }
     }
 

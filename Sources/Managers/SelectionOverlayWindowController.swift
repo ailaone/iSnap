@@ -9,10 +9,13 @@ class SelectionOverlayWindowController: NSWindowController {
     
     // The view handling the drawing of the selection rect
     private var selectionView: SelectionView?
+    private let targetScreen: NSScreen
+    private let frozenImage: CGImage
 
-    convenience init() {
-        // Create a borderless, transparent window covering the entire screen
-        let screen = NSScreen.main ?? NSScreen.screens[0]
+    init(screen: NSScreen, frozenImage: CGImage) {
+        self.targetScreen = screen
+        self.frozenImage = frozenImage
+
         let window = iSnapWindow( /// Use iSnapWindow to capture Esc
             contentRect: screen.frame,
             styleMask: [.borderless, .nonactivatingPanel],
@@ -24,19 +27,24 @@ class SelectionOverlayWindowController: NSWindowController {
         window.backgroundColor = NSColor.clear
         window.isOpaque = false
         window.hasShadow = false
+        window.animationBehavior = .none
         window.ignoresMouseEvents = false
         window.acceptsMouseMovedEvents = true // V1.5: Ensure we get mouse moved events for cursor update
-        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        window.collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
         
-        self.init(window: window)
+        super.init(window: window)
         
         window.onEsc = { [weak self] in
             self?.cancelSelection()
         }
         
-        selectionView = SelectionView(frame: screen.frame)
+        selectionView = SelectionView(frame: screen.frame, frozenImage: frozenImage)
         selectionView?.delegate = self
         window.contentView = selectionView
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func selectionView(_ view: SelectionView, didSelectRect rect: CGRect, withImage image: CGImage?) {
@@ -45,24 +53,27 @@ class SelectionOverlayWindowController: NSWindowController {
     }
     
     func cancelSelection() {
+        selectionView?.endSelection()
         window?.orderOut(nil)
         onSelectionComplete?(CGRect.zero, nil) // Return nil signal to reset state
     }
     
     func startSelection() {
         // Update frame to match current screen just in case
-        if let screen = NSScreen.main {
-            window?.setFrame(screen.frame, display: true)
-            selectionView?.frame = screen.frame
-        }
-        
+        window?.setFrame(targetScreen.frame, display: true)
+        selectionView?.frame = targetScreen.frame
+
+        selectionView?.prepareForSelection()
         window?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        NSApp.activate(ignoringOtherApps: false)
         window?.invalidateCursorRects(for: selectionView!)
+        DispatchQueue.main.async { [weak self] in
+            self?.selectionView?.applyInitialCursor()
+        }
     }
     
     func endSelection() {
-        NSCursor.pop()
+        selectionView?.endSelection()
         window?.orderOut(nil)
     }
 }
@@ -74,19 +85,39 @@ protocol SelectionViewDelegate: AnyObject {
 extension SelectionOverlayWindowController: SelectionViewDelegate {
     func didSelectRect(_ rect: CGRect) {
         endSelection()
-        
-        // Convert window coordinates to screen coordinates if needed
-        // The window matches the screen frame, so window coords ~= screen coords (with y-flip processing if using CG)
-        
-        // Cocoa (AppKit) uses bottom-left origin. Quartz (CG) uses top-left origin usually, but CGWindowListCreateImage expects CGRect in generic coordinates.
-        // Usually need to flip Y for CGWindowListCreateImage derived from NSEvent locations?
-        // Actually, NSScreen coords are global (x,y) from bottom-left of primary screen.
-        // We pass the rect in screen coordinates.
-        
-        // Capture! Using Async method to support ScreenCaptureKit
-        ScreenCaptureManager.shared.captureRegion(rect) { [weak self] image in
-            self?.onSelectionComplete?(rect, image)
-        }
+
+        let croppedImage = cropFrozenImage(to: rect)
+        onSelectionComplete?(rect, croppedImage)
+    }
+
+    private func cropFrozenImage(to cgRect: CGRect) -> CGImage? {
+        let primaryScreenHeight = NSScreen.screens[0].frame.height
+        let screenFrame = targetScreen.frame
+        let screenCGFrame = CGRect(
+            x: screenFrame.origin.x,
+            y: primaryScreenHeight - (screenFrame.origin.y + screenFrame.height),
+            width: screenFrame.width,
+            height: screenFrame.height
+        )
+
+        let localRect = CGRect(
+            x: cgRect.origin.x - screenCGFrame.origin.x,
+            y: cgRect.origin.y - screenCGFrame.origin.y,
+            width: cgRect.width,
+            height: cgRect.height
+        )
+
+        let scaleX = CGFloat(frozenImage.width) / targetScreen.frame.width
+        let scaleY = CGFloat(frozenImage.height) / targetScreen.frame.height
+
+        let cropRect = CGRect(
+            x: localRect.origin.x * scaleX,
+            y: localRect.origin.y * scaleY,
+            width: localRect.width * scaleX,
+            height: localRect.height * scaleY
+        ).integral
+
+        return frozenImage.cropping(to: cropRect)
     }
 }
 
@@ -96,11 +127,14 @@ class SelectionView: NSView {
     private var startPoint: CGPoint?
     private var currentPoint: CGPoint?
     private var dragLayer: CALayer = CALayer()
+    private let frozenImage: CGImage
     
-    override init(frame: NSRect) {
+    init(frame: NSRect, frozenImage: CGImage) {
+        self.frozenImage = frozenImage
         super.init(frame: frame)
         wantsLayer = true
-        
+        _ = customCursor
+
         dragLayer.borderWidth = 1
         dragLayer.borderColor = NSColor.systemGray.cgColor
         dragLayer.backgroundColor = NSColor.systemGray.withAlphaComponent(0.2).cgColor
@@ -111,38 +145,41 @@ class SelectionView: NSView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // V2.0: Custom Larger Crosshair Cursor
+
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
+        true
+    }
+
     private lazy var customCursor: NSCursor = {
-        let size = NSSize(width: 28, height: 28) // Approx 25% larger than standard (16-18pt)
+        let size = NSSize(width: 22, height: 22)
+        let center = CGFloat(11)
+        let lineInset = CGFloat(2)
         let image = NSImage(size: size)
+
         image.lockFocus()
-        
-        let path = NSBezierPath()
-        path.lineWidth = 2.0 // Slightly thicker for larger size
-        
-        // Vertical line
-        path.move(to: CGPoint(x: 12, y: 4))
-        path.line(to: CGPoint(x: 12, y: 20))
-        
-        // Horizontal line
-        path.move(to: CGPoint(x: 4, y: 12))
-        path.line(to: CGPoint(x: 20, y: 12))
-        
-        // Draw white with black shadow/outline for visibility
-        // Outline
+
+        let outlinePath = NSBezierPath()
+        outlinePath.lineCapStyle = .round
+        outlinePath.lineWidth = 2.5
+        outlinePath.move(to: CGPoint(x: center, y: lineInset))
+        outlinePath.line(to: CGPoint(x: center, y: size.height - lineInset))
+        outlinePath.move(to: CGPoint(x: lineInset, y: center))
+        outlinePath.line(to: CGPoint(x: size.width - lineInset, y: center))
         NSColor.black.setStroke()
-        path.lineWidth = 3.0
-        path.stroke()
-        
-        // White Inner
+        outlinePath.stroke()
+
+        let innerPath = NSBezierPath()
+        innerPath.lineCapStyle = .round
+        innerPath.lineWidth = 1.25
+        innerPath.move(to: CGPoint(x: center, y: lineInset))
+        innerPath.line(to: CGPoint(x: center, y: size.height - lineInset))
+        innerPath.move(to: CGPoint(x: lineInset, y: center))
+        innerPath.line(to: CGPoint(x: size.width - lineInset, y: center))
         NSColor.white.setStroke()
-        path.lineWidth = 1.5
-        path.stroke()
-        
+        innerPath.stroke()
+
         image.unlockFocus()
-        
-        return NSCursor(image: image, hotSpot: NSPoint(x: 12, y: 12))
+        return NSCursor(image: image, hotSpot: NSPoint(x: center, y: center))
     }()
     
     override func viewDidMoveToWindow() {
@@ -157,13 +194,27 @@ class SelectionView: NSView {
         super.resetCursorRects()
         addCursorRect(bounds, cursor: customCursor)
     }
-    
-    // V1.5: Force cursor update
-    override func cursorUpdate(with event: NSEvent) {
+
+    func prepareForSelection() {
+        startPoint = nil
+        currentPoint = nil
+        dragLayer.isHidden = true
+        discardCursorRects()
+        window?.invalidateCursorRects(for: self)
+        customCursor.push()
         customCursor.set()
     }
+
+    func applyInitialCursor() {
+        discardCursorRects()
+        window?.invalidateCursorRects(for: self)
+        customCursor.set()
+    }
+
+    func endSelection() {
+        NSCursor.pop()
+    }
     
-    // Explicitly set cursor on mouse moved to handle race conditions
     override func mouseMoved(with event: NSEvent) {
         customCursor.set()
     }
@@ -171,16 +222,19 @@ class SelectionView: NSView {
     override func mouseDown(with event: NSEvent) {
         startPoint = event.locationInWindow
         currentPoint = startPoint
+        customCursor.set()
         updateLayerFrame()
         dragLayer.isHidden = false
     }
     
     override func mouseDragged(with event: NSEvent) {
         currentPoint = event.locationInWindow
+        customCursor.set()
         updateLayerFrame()
     }
     
     override func mouseUp(with event: NSEvent) {
+        customCursor.set()
         dragLayer.isHidden = true
         
         guard let start = startPoint, let end = currentPoint else { return }
@@ -200,22 +254,10 @@ class SelectionView: NSView {
             if SettingsManager.shared.oneClickFullscreen {
                 // Capture entire screen
                 if let screenFrame = window?.frame {
-                    // Use the full screen frame
-                    // We need to re-convert to CG coordinates logic below, but easiest is to just use the window frame
-                    
-                    // We can reuse the logic below by faking the rect to be the window bounds
                     let fullRect = NSRect(origin: .zero, size: screenFrame.size)
                     processSelection(rect: fullRect, inWindow: screenFrame)
                 }
             } else {
-                // Ignore click / Reset
-                delegate?.didSelectRect(.null) // Or cancel
-                // Actually, cancelSelection in controller handles orderOut.
-                // We should probably just call a "cancel" delegate method or do nothing?
-                // If we do nothing, the overlay stays up.
-                // The user probably wants to just restart selection/do nothing if they accidentally clicked.
-                
-                // Let's reset startPoint so they can drag again
                 startPoint = nil
                 currentPoint = nil
                 return
@@ -268,6 +310,14 @@ class SelectionView: NSView {
         CATransaction.setDisableActions(true)
         dragLayer.frame = CGRect(x: x, y: y, width: w, height: h)
         CATransaction.commit()
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+
+        guard let context = NSGraphicsContext.current?.cgContext else { return }
+        context.interpolationQuality = .none
+        context.draw(frozenImage, in: bounds)
     }
     
     override var isFlipped: Bool {
